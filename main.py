@@ -46,7 +46,7 @@ vector_store = QdrantVectorStore(
     embedding=embedding_model,
 )
 
-# Endpoint: Upload and store PDF chunks
+# Endpoint: Upload and store PDF chunks 
 @app.post("/upload/")
 async def upload(file: UploadFile = File(...)):
     try:
