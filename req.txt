@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+PyPDF2
+qdrant-client
+langchain-community
+langchain-qdrant
+sentence-transformers
+requests
+fastembed

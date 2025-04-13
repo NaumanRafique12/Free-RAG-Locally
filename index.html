@@ -1,0 +1,119 @@
+# index.html (Enhanced UI for Better Visual Appeal)
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RAG PDF Chat</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f2f4f8;
+            margin: 0;
+            padding: 30px;
+            color: #333;
+        }
+        h1, h2 {
+            color: #2c3e50;
+        }
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            margin-top: 20px;
+            font-size: 1.1rem;
+        }
+        input[type="file"], input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+        button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            color: white;
+            background-color: #4a90e2;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+        button:hover {
+            background-color: #357ab7;
+        }
+        .answer-box {
+            margin-top: 25px;
+            background: #f9f9f9;
+            padding: 20px;
+            border-left: 4px solid #4a90e2;
+            font-size: 1.1rem;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>RAG PDF Chat</h1>
+
+        <label for="pdfFile">Upload PDF</label>
+        <input type="file" id="pdfFile" accept="application/pdf">
+        <button onclick="uploadPDF()">Upload</button>
+
+        <label for="question">Ask a Question</label>
+        <input type="text" id="question" placeholder="Type your question here...">
+        <button onclick="askQuestion()">Ask</button>
+
+        <div class="answer-box" id="answer">
+            <strong>Answer:</strong>
+            <div id="responseText"></div>
+        </div>
+    </div>
+
+    <script>
+        async function uploadPDF() {
+            const fileInput = document.getElementById('pdfFile');
+            const file = fileInput.files[0];
+            if (!file || !file.name.endsWith('.pdf')) {
+                alert("Please upload a valid PDF file.");
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            const response = await fetch('http://localhost:8000/upload/', {
+                method: 'POST',
+                body: formData
+            });
+
+            const result = await response.json();
+            alert(`✅ Chunks stored: ${result.chunks || 'N/A'}`);
+        }
+
+        async function askQuestion() {
+            const question = document.getElementById('question').value;
+            const formData = new FormData();
+            formData.append('query', question);
+
+            const response = await fetch('http://localhost:8000/query/', {
+                method: 'POST',
+                body: formData
+            });
+
+            const result = await response.json();
+            document.getElementById('responseText').textContent = result.answer || 'No response.';
+        }
+    </script>
+</body>
+</html>

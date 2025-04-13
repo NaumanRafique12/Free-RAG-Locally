@@ -1,0 +1,15 @@
+{
+  "name": "pdf_reader_electron_app",
+  "version": "1.0.0",
+  "description": "Electron app with FastAPI backend to read PDF files",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Noman Rafique",
+  "license": "ISC",
+  "keywords": [],
+  "devDependencies": {
+    "electron": "^35.1.5"
+  }
+}

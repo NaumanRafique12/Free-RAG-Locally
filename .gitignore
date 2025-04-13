@@ -1,0 +1,14 @@
+# Ignore Python virtual environment
+myenv/
+
+# Ignore Node.js modules
+node_modules/
+
+# Ignore Qdrant local storage
+local_qdrant/
+
+# Optional: Ignore __pycache__ and backup files
+__pycache__/
+*.pyc
+*.pyo
+*.log
